@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.screenshots  = "http://www.i-pol.com", "http://www.i-pol.com"
   s.license      = 'MIT'
   s.author       = { "Josef Materi" => "josef.materi@gmail.com" }
-  s.source       = { :git => "git@github.com:jaylib/JMURLCache.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/jaylib/JMURLCache.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '6.0'
   s.requires_arc = true
@@ -20,4 +20,5 @@ Pod::Spec.new do |s|
   #s.ios.exclude_files = 'Classes/osx'
   #s.osx.exclude_files = 'Classes/ios'
   s.dependency 'AFNetworking'
+  s.dependency 'Reachability'
 end
