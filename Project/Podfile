@@ -1,0 +1,7 @@
+pod "JMURLCache", :path => "../JMURLCache.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
