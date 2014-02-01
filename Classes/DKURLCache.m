@@ -60,23 +60,22 @@ static NSString *const fileStorageRoot = @"http://www.i-pol.com/dropkick/";
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *files = [fileManager contentsOfDirectoryAtPath:cacheDirectory error:&error];
-
     NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 
     [files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         NSError *error = nil;
         
-        NSString *fileInDirectory = [[NSBundle mainBundle] pathForResource:obj ofType:@""];
+        NSString *fileInDirectory = [[NSBundle mainBundle] pathForResource:obj ofType:@"" inDirectory:directory];
         
         NSString *destinationPath  = [cachesPath stringByAppendingPathComponent:obj];
         
-        BOOL fileAlreadyExists = [[NSFileManager defaultManager] fileExistsAtPath:fileInDirectory];
+        BOOL fileAlreadyExists = [[NSFileManager defaultManager] fileExistsAtPath:destinationPath];
         
         if (!fileAlreadyExists) {
             [[NSFileManager defaultManager] copyItemAtPath:fileInDirectory
                                                     toPath:destinationPath
-                                                     error:&error];
+                                                     error:&error];        
         }
         
     }];

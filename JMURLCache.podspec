@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "JMURLCache"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "A short summary of JMURLCache."
   s.description  = <<-DESC
                     No description placeholder for JMURLCache.
