@@ -40,6 +40,7 @@ static NSString *const fileStorageRoot = @"http://www.i-pol.com/dropkick/";
     if ([super init]) {
         self.httpRequestOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:fileStorageRoot]];
         self.operationQueue = [[NSOperationQueue alloc] init];
+        [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     }
     return self;
 }
