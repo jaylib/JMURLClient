@@ -10,8 +10,6 @@
 #import <AFNetworking.h>
 #import "RNCachingURLProtocol.h"
 
-static NSString *const fileStorageRoot = @"http://www.i-pol.com/dropkick/";
-
 @interface DKURLCache()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *httpRequestOperationManager;
@@ -38,7 +36,7 @@ static NSString *const fileStorageRoot = @"http://www.i-pol.com/dropkick/";
 
 - (instancetype)init {
     if ([super init]) {
-        self.httpRequestOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:fileStorageRoot]];
+        self.httpRequestOperationManager = [[AFHTTPRequestOperationManager alloc] init];
         self.operationQueue = [[NSOperationQueue alloc] init];
         [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     }
@@ -142,22 +140,22 @@ static NSString *const fileStorageRoot = @"http://www.i-pol.com/dropkick/";
 
 #pragma mark - Convenience Methods for filename based requests
 
-- (void)cacheRequestsForFilenames:(NSArray *)filenames withBaseURL:(NSURL *)baseURL complete:(void (^)(NSArray *paths))complete failed:(void (^)(NSError *error, BOOL *retryIfFailed))failed {
-    NSArray *requestsForFileNames = [self requestForFilenames:filenames withBaseURL:baseURL];
+- (void)cacheRequestsForFilenames:(NSArray *)filenames complete:(void (^)(NSArray *paths))complete failed:(void (^)(NSError *error, BOOL *retryIfFailed))failed {
+    NSArray *requestsForFileNames = [self requestForFilenames:filenames ];
     [self cacheURLRequests:requestsForFileNames complete:complete failed:failed];
 }
 
-- (NSArray *)requestForFilenames:(NSArray *)filenames withBaseURL:(NSURL *)baseURL {
+- (NSArray *)requestForFilenames:(NSArray *)filenames {
     NSMutableArray *requests = [NSMutableArray array];
     [filenames enumerateObjectsUsingBlock:^(NSString *filename, NSUInteger idx, BOOL *stop) {
-        NSURLRequest *request = [self requestForFilename:filename withBaseURL:baseURL];
+        NSURLRequest *request = [self requestForFilename:filename];
         [requests addObject:request];
     }];
     return requests;
 }
 
-- (NSURLRequest *)requestForFilename:(NSString *)filename withBaseURL:(NSURL *)baseURL{
-    return [NSURLRequest requestWithURL:[NSURL URLWithString:filename relativeToURL:baseURL]];
+- (NSURLRequest *)requestForFilename:(NSString *)filename {
+    return [NSURLRequest requestWithURL:[NSURL URLWithString:filename]];
 }
 
 
